@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'A Dynamodb table creation'
+
+Parameters:
+  MyDynamoAttribute:
+    Type: String
+  MyDynamoTableName:
+    Type: String
+
+Resources:
+  MyFirstDynamoDb: # Resource name
+    Type: AWS::DynamoDB::Table  # Table
+    Properties:
+      TableName: !Ref MyDynamoTableName
+      AttributeDefinitions:
+        - AttributeName:
+            Ref: MyDynamoAttribute  # Short way (In the same line of AttributeName): !Ref MyDynamoAttribute
+          AttributeType: S  # S | N | B
+      KeySchema:
+        - AttributeName: !Ref MyDynamoAttribute
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+
+Outputs:
+  DynamoTableNameOutput:
+    Description: 'DynamoDb Table name output description'
+    Value: !Ref MyFirstDynamoDb
+    Export:
+      Name: MyDynamoTableName  # The Name field of Export must not depend on any resources, imported values, or Fn::GetAZs.
+      #Name: !GetAtt MyFirstDynamoDb.TableName  # Fn::GetAtt: [MyFirstDynamoDb, TableName] . Error!
