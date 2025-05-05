@@ -8,6 +8,7 @@
 
 ## Commands
 ```bash
+# https://github.com/czam01/cloudformation/tree/master
 aws cloudformation validate-template --template-body file://template.yaml
 aws cloudformation validate-template --output table|yaml|json --template-body file://template.yaml
 ```
